@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Project Image Generator</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      background-color: #0B1F3F;
+      color: #E0E0E0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+    }
+    
+    .canvas-container {
+      margin: 20px 0;
+    }
+    
+    canvas {
+      border: 1px solid #1E293B;
+      max-width: 100%;
+    }
+    
+    .controls {
+      margin-bottom: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      width: 100%;
+      max-width: 600px;
+    }
+    
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: 600;
+    }
+    
+    input, select {
+      width: 100%;
+      padding: 8px;
+      border-radius: 4px;
+      border: 1px solid #1E293B;
+      background: #1E293B;
+      color: #E0E0E0;
+    }
+    
+    button {
+      padding: 10px 15px;
+      background: #0070f3;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: 600;
+      margin-top: 10px;
+    }
+    
+    button:hover {
+      background: #005ac1;
+    }
+    
+    .download-links {
+      margin-top: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      width: 100%;
+      max-width: 600px;
+    }
+    
+    .download-link {
+      padding: 10px;
+      background: #1E293B;
+      border-radius: 4px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .download-link a {
+      color: #00DFD8;
+      text-decoration: none;
+    }
+    
+    .download-link a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <h1>Project Image Generator</h1>
+  <p>Generate placeholder images for your portfolio projects</p>
+  
+  <div class="controls">
+    <div>
+      <label for="width">Width:</label>
+      <input type="number" id="width" value="600" min="100" max="1200" step="50">
+    </div>
+    
+    <div>
+      <label for="height">Height:</label>
+      <input type="number" id="height" value="400" min="100" max="800" step="50">
+    </div>
+    
+    <div>
+      <label for="title">Project Title:</label>
+      <input type="text" id="title" value="Project Title" placeholder="Enter project title">
+    </div>
+    
+    <div>
+      <label for="bgcolor">Background Style:</label>
+      <select id="bgcolor">
+        <option value="tech1">Tech Blue Gradient</option>
+        <option value="tech2">Purple Code</option>
+        <option value="tech3">Terminal Green</option>
+        <option value="tech4">Cyber Orange</option>
+      </select>
+    </div>
+    
+    <div>
+      <label for="filename">File name (without extension):</label>
+      <input type="text" id="filename" value="project1" placeholder="project1">
+    </div>
+    
+    <button onclick="generateImage()">Generate Image</button>
+  </div>
+  
+  <div class="canvas-container">
+    <canvas id="canvas" width="600" height="400"></canvas>
+  </div>
+  
+  <button onclick="downloadImage()">Download Image</button>
+  
+  <div class="download-links" id="downloadLinks">
+    <!-- Download links will appear here -->
+  </div>
+  
+  <script>
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    
+    const patterns = {
+      tech1: {
+        bg: 'linear-gradient(135deg, #0B1F3F 0%, #112240 100%)',
+        draw: function() {
+          // Draw circuit patterns
+          ctx.strokeStyle = 'rgba(0, 200, 215, 0.1)';
+          ctx.lineWidth = 1;
+          
+          for (let i = 0; i < 15; i++) {
+            const x = Math.random() * canvas.width;
+            const y = Math.random() * canvas.height;
+            
+            ctx.beginPath();
+            ctx.moveTo(x, y);
+            ctx.lineTo(x + 50, y);
+            ctx.lineTo(x + 50, y + 50);
+            ctx.lineTo(x + 100, y + 50);
+            ctx.stroke();
+            
+            // Add small circles at the corners
+            ctx.fillStyle = 'rgba(0, 200, 215, 0.2)';
+            ctx.beginPath();
+            ctx.arc(x, y, 3, 0, Math.PI * 2);
+            ctx.arc(x + 50, y, 3, 0, Math.PI * 2);
+            ctx.arc(x + 50, y + 50, 3, 0, Math.PI * 2);
+            ctx.arc(x + 100, y + 50, 3, 0, Math.PI * 2);
+            ctx.fill();
+          }
+        }
+      },
+      tech2: {
+        bg: 'linear-gradient(135deg, #2A0845 0%, #6441A5 100%)',
+        draw: function() {
+          // Draw code-like lines
+          ctx.fillStyle = 'rgba(255, 255, 255, 0.1)';
+          const lineHeight = 10;
+          
+          for (let y = 20; y < canvas.height; y += lineHeight * 1.5) {
+            const lineWidth = Math.random() * 100 + 50;
+            ctx.fillRect(20, y, lineWidth, lineHeight);
+          }
+          
+          for (let y = 30; y < canvas.height; y += lineHeight * 1.8) {
+            const lineWidth = Math.random() * 150 + 50;
+            ctx.fillRect(180, y, lineWidth, lineHeight);
+          }
+        }
+      },
+      tech3: {
+        bg: 'linear-gradient(135deg, #0F2027 0%, #203A43 50%, #2C5364 100%)',
+        draw: function() {
+          // Terminal style
+          ctx.fillStyle = 'rgba(0, 255, 170, 0.15)';
+          ctx.font = '12px monospace';
+          
+          const text = [
+            "$ npm start",
+            "> building...",
+            "SUCCESS:",
+            "✓ Compiled successfully",
+            "$ docker build -t app .",
+            "Step 1/10 : FROM node:alpine",
+            "$ kubectl apply -f deploy.yaml",
+            "deployment.apps/app created",
+            "service/app-service created",
+            "$ git commit -m 'deploy: v1.0.0'"
+          ];
+          
+          for (let i = 0; i < 20; i++) {
+            const y = 20 + i * 18;
+            const line = text[i % text.length];
+            ctx.fillText(line, 20, y);
+          }
+        }
+      },
+      tech4: {
+        bg: 'linear-gradient(135deg, #1A2A35 0%, #27303A 100%)',
+        draw: function() {
+          // Cyber pattern
+          ctx.strokeStyle = 'rgba(255, 122, 26, 0.3)';
+          ctx.lineWidth = 1;
+          
+          // Grid pattern
+          for (let x = 0; x < canvas.width; x += 20) {
+            ctx.beginPath();
+            ctx.moveTo(x, 0);
+            ctx.lineTo(x, canvas.height);
+            ctx.stroke();
+          }
+          
+          for (let y = 0; y < canvas.height; y += 20) {
+            ctx.beginPath();
+            ctx.moveTo(0, y);
+            ctx.lineTo(canvas.width, y);
+            ctx.stroke();
+          }
+          
+          // Highlight some cells
+          ctx.fillStyle = 'rgba(255, 122, 26, 0.2)';
+          for (let i = 0; i < 15; i++) {
+            const x = Math.floor(Math.random() * (canvas.width / 20)) * 20;
+            const y = Math.floor(Math.random() * (canvas.height / 20)) * 20;
+            ctx.fillRect(x, y, 20, 20);
+          }
+        }
+      }
+    };
+    
+    function generateImage() {
+      const width = document.getElementById('width').value;
+      const height = document.getElementById('height').value;
+      const title = document.getElementById('title').value;
+      const bgStyle = document.getElementById('bgcolor').value;
+      
+      // Update canvas size
+      canvas.width = width;
+      canvas.height = height;
+      
+      // Draw background gradient
+      const bgPattern = patterns[bgStyle];
+      const gradient = ctx.createLinearGradient(0, 0, width, height);
+      
+      if (bgStyle === 'tech1') {
+        gradient.addColorStop(0, '#0B1F3F');
+        gradient.addColorStop(1, '#112240');
+      } else if (bgStyle === 'tech2') {
+        gradient.addColorStop(0, '#2A0845');
+        gradient.addColorStop(1, '#6441A5');
+      } else if (bgStyle === 'tech3') {
+        gradient.addColorStop(0, '#0F2027');
+        gradient.addColorStop(0.5, '#203A43');
+        gradient.addColorStop(1, '#2C5364');
+      } else if (bgStyle === 'tech4') {
+        gradient.addColorStop(0, '#1A2A35');
+        gradient.addColorStop(1, '#27303A');
+      }
+      
+      ctx.fillStyle = gradient;
+      ctx.fillRect(0, 0, width, height);
+      
+      // Draw pattern
+      bgPattern.draw();
+      
+      // Add overlay gradient
+      const overlay = ctx.createLinearGradient(0, height * 0.6, 0, height);
+      overlay.addColorStop(0, 'rgba(0, 0, 0, 0)');
+      overlay.addColorStop(1, 'rgba(0, 0, 0, 0.8)');
+      ctx.fillStyle = overlay;
+      ctx.fillRect(0, 0, width, height);
+      
+      // Draw text
+      ctx.fillStyle = '#FFFFFF';
+      ctx.font = Math.max(width / 20, 20) + 'px sans-serif';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'bottom';
+      ctx.fillText(title, width / 2, height - 30);
+      
+      // Add a subtle border
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.2)';
+      ctx.lineWidth = 1;
+      ctx.strokeRect(0, 0, width, height);
+    }
+    
+    function downloadImage() {
+      const filename = document.getElementById('filename').value || 'project-image';
+      const dataUrl = canvas.toDataURL('image/jpeg', 0.9);
+      
+      const link = document.createElement('a');
+      link.download = `${filename}.jpg`;
+      link.href = dataUrl;
+      
+      // Add to download links list
+      const downloadLinks = document.getElementById('downloadLinks');
+      const linkContainer = document.createElement('div');
+      linkContainer.className = 'download-link';
+      
+      const fileNameSpan = document.createElement('span');
+      fileNameSpan.textContent = `${filename}.jpg`;
+      
+      const downloadLink = document.createElement('a');
+      downloadLink.href = dataUrl;
+      downloadLink.download = `${filename}.jpg`;
+      downloadLink.textContent = 'Download';
+      
+      linkContainer.appendChild(fileNameSpan);
+      linkContainer.appendChild(downloadLink);
+      downloadLinks.appendChild(linkContainer);
+      
+      // Trigger download
+      link.click();
+    }
+    
+    // Generate an image on page load
+    window.onload = generateImage;
+  </script>
+</body>
+</html>
