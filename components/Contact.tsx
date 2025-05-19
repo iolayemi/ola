@@ -50,16 +50,16 @@ export function Contact() {
             viewport={{ once: true }}
           >
             <div className="card p-8">
-              <h3 className="font-mono text-cyanTech text-xl mb-6">Let's Connect!</h3>
+              <h3 className="font-mono text-cyanTech text-xl mb-6">Let&apos;s Connect!</h3>
               <p className="text-gray-300 mb-6">
-                I'm always open to discussing new projects, opportunities in software engineering,
+                I&apos;m always open to discussing new projects, opportunities in software engineering,
                 DevOps, or technology consulting.
               </p>
               
               <div className="bg-terminal border border-gray-700 rounded-lg p-5 mb-8">
                 <p className="text-solarTangerine font-mono text-sm mb-2">$ echo "fun_fact.txt"</p>
                 <div className="text-gray-300 bg-code-bg p-3 rounded">
-                  <p className="mb-2">🎤 <span className="text-accent">I'm available for speaking gigs!</span></p>
+                  <p className="mb-2">🎤 <span className="text-accent">I&apos;m available for speaking gigs!</span></p>
                   <p className="mb-2">💻 <span className="text-cyanTech">Open to collaborate on quirky & interesting projects</span></p>
                   <p>🚀 <span className="text-solarTangerine">Will work for good coffee and dad jokes</span></p>
                 </div>
@@ -166,7 +166,7 @@ export function Contact() {
                     rows={4}
                     className="w-full bg-code-bg border border-gray-700 rounded p-3 text-gray-200 focus:border-cyanTech focus:outline-none focus:ring-1 focus:ring-cyanTech resize-none"
                     placeholder="How can I help you? Or share your best dad joke!"
-                  />
+                  ></textarea>
                 </div>
                 
                 <button

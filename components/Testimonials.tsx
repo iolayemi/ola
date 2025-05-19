@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import Image from 'next/image';
 
 // More detailed testimonial data
 const testimonials = [
@@ -60,10 +61,12 @@ export function Testimonials() {
               >
                 {/* Testimonial image */}
                 <div className="w-24 h-24 md:w-32 md:h-32 shrink-0">
-                  <img 
+                  <Image 
                     src={testimonials[activeIndex].image}
                     alt={testimonials[activeIndex].name}
-                    className="rounded-full border-2 border-accent object-cover w-full h-full"
+                    width={96}
+                    height={96}
+                    className="rounded-full"
                   />
                 </div>
                 
@@ -75,7 +78,7 @@ export function Testimonials() {
                   
                   {/* Quote */}
                   <blockquote className="text-gray-200 italic mb-4 leading-relaxed">
-                    "{testimonials[activeIndex].quote}"
+                    &quot;{testimonials[activeIndex].quote}&quot;
                   </blockquote>
                   
                   {/* Author */}

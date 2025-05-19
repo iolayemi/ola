@@ -8,9 +8,9 @@ const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://olayemi-portfolio.vercel.app'),
-  title: 'Olayemi Ibukun | Software Engineer & Cloud Architect',
+  title: 'Olayemi Lasisi | Software Engineer & Cloud Architect',
   description: 'Software Engineer and Cloud Architect with expertise in building scalable distributed systems and cloud-native applications.',
-  authors: [{ name: 'Olayemi Ibukun' }],
+  authors: [{ name: 'Olayemi Lasisi' }],
   keywords: ['Software Engineer', 'Cloud Architect', 'Kubernetes', 'DevOps', 'AWS', 'Azure'],
   openGraph: {
     title: 'Olayemi Lasisi | Full Stack Engineer & DevOps Specialist',
@@ -42,7 +42,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         
         <footer className="bg-terminal py-6 text-center">
           <p className="text-sm text-gray-400">
-            &copy; {new Date().getFullYear()} Olayemi Ibukun. All rights reserved.
+            &copy; {new Date().getFullYear()} Olayemi Lasisi. All rights reserved.
           </p>
         </footer>
         

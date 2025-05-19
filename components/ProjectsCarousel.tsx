@@ -1,7 +1,8 @@
 'use client';
 
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import Image from 'next/image';
 
 // More detailed project information
 const projects = [
@@ -44,7 +45,6 @@ const projects = [
 ];
 
 export function ProjectsCarousel() {
-  const carouselRef = useRef<HTMLDivElement>(null);
   const [selectedProject, setSelectedProject] = useState<number | null>(null);
   
   // Handle opening project details
@@ -72,10 +72,11 @@ export function ProjectsCarousel() {
               onClick={() => openProject(project.id)}
             >
               <div className="relative h-48">
-                <img 
+                <Image 
                   src={project.image} 
                   alt={project.title} 
-                  className="h-full w-full object-cover"
+                  layout="fill" 
+                  objectFit="cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-80"></div>
                 <div className="absolute bottom-0 left-0 p-4">
@@ -148,9 +149,11 @@ export function ProjectsCarousel() {
                 {/* Project details */}
                 {selectedProject && (
                   <div className="p-6">
-                    <img 
-                      src={projects.find(p => p.id === selectedProject)?.image}
-                      alt={projects.find(p => p.id === selectedProject)?.title}
+                    <Image 
+                      src={projects.find(p => p.id === selectedProject)?.image || '/images/default-placeholder.jpg'}
+                      alt={projects.find(p => p.id === selectedProject)?.title || 'Default Title'}
+                      layout="fill" 
+                      objectFit="cover"
                       className="w-full h-64 object-cover rounded-lg mb-6"
                     />
                     

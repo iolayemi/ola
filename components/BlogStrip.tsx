@@ -43,8 +43,15 @@ export function BlogStrip() {
     async function loadPosts() {
       try {
         const posts = await getMediumPosts('i.am.ola', 3);
+        console.log('Fetched Medium posts:', JSON.stringify(posts, null, 2)); // Debugging log
         if (posts && posts.length > 0) {
-          setBlogPosts(posts);
+          // Filter out posts with undefined title or link
+          const validPosts = posts.filter(post => post.title && post.link).map(post => ({
+            title: post.title || '',
+            link: post.link || ''
+          }));
+          console.log('Valid Medium posts:', validPosts); // Debugging log
+          setBlogPosts(validPosts);
         }
       } catch (error) {
         console.error('Failed to fetch Medium posts:', error);
@@ -52,7 +59,7 @@ export function BlogStrip() {
         setIsLoading(false);
       }
     }
-    
+
     loadPosts();
   }, []);
 

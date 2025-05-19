@@ -1,7 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
+import Image from 'next/image';
 
 // Enhanced case studies data
 type Study = {
@@ -70,10 +71,11 @@ export function CaseStudies() {
             >
               {/* Study image */}
               <div className="relative h-48">
-                <img 
+                <Image 
                   src={study.image} 
                   alt={study.title} 
-                  className="h-full w-full object-cover"
+                  layout="fill" 
+                  objectFit="cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-80"></div>
               </div>

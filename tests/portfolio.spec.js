@@ -14,7 +14,7 @@ test('portfolio website styling and components test', async ({ page }) => {
   // Check the title
   const title = await page.title();
   console.log(`Page title: ${title}`);
-  expect(title).toContain('Olayemi Ibukun');
+  expect(title).toContain('Olayemi Lasisi');
   
   // Test 1: Verify that the navbar is visible and has the correct styling
   const navbar = await page.locator('nav');

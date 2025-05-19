@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 
 // Improved typing effect component with guaranteed correct text
 const TypedText = ({ text, delay = 100 }: { text: string, delay?: number }) => {
@@ -61,10 +62,12 @@ export function TerminalHero() {
           {/* Terminal content */}
           <div className="p-6 font-mono text-sm">
             <div className="flex mb-6 items-center gap-8">
-              <img 
+              <Image 
                 src="/headshot.jpg" 
                 alt={nameText}
-                className="w-32 h-32 rounded-full border-2 border-accent object-cover"
+                width={128}
+                height={128}
+                className="rounded-full border-2 border-accent object-cover"
               />
               <div className="space-y-2">
                 <p className="text-gray-400">$ whoami</p>
@@ -87,6 +90,7 @@ export function TerminalHero() {
               <p>Engineer passionate about building modern, scalable applications and infrastructure across multiple platforms and technologies.</p>
               <p>Specializing in cloud architecture, microservice design, and event-driven systems - creating elegant solutions to complex problems.</p>
               <p className="mt-2 text-cyanTech">Open for speaking gigs and collaborations on quirky projects that make the world a bit more awesome! 🚀</p>
+              <p>It&apos;s time to build something amazing!</p>
             </div>
 
             <p className="text-gray-400 mb-2">$ ls skills/</p>
