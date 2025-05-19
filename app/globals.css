@@ -1,20 +1,23 @@
-@import "tailwindcss";
+/* Remove incorrect import */
+/* @import "tailwindcss"; */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 :root {
   --background: #ffffff;
   --foreground: #171717;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+.dark {
+  --background: #0B1F3F;
+  --foreground: #ededed;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
+    --background: #0B1F3F;
     --foreground: #ededed;
   }
 }
@@ -22,5 +25,112 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Inter', sans-serif;
+  scroll-behavior: smooth;
+}
+
+/* Custom utilities */
+.gradient-text {
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-gradient-1 to-gradient-2;
+}
+
+.animated-gradient {
+  background: linear-gradient(270deg, #6700EB, #00DFD8);
+  background-size: 200% 200%;
+  animation: gradient-x 15s ease infinite;
+}
+
+/* Section styles */
+.section-heading {
+  @apply font-mono text-solarTangerine text-lg font-bold mb-6 pl-4;
+  position: relative;
+}
+
+.section-heading::before {
+  content: "//";
+  @apply text-solarTangerine mr-2;
+}
+
+/* Card styles */
+.card {
+  @apply bg-terminal border border-gray-700 rounded-lg overflow-hidden transition-all;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2), 0 8px 10px -5px rgba(0, 0, 0, 0.1);
+  @apply border-cyanTech;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--background);
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-gray-600 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-gray-500;
+}
+
+/* Terminal typing effect */
+.typewriter {
+  overflow: hidden;
+  border-right: 0.15em solid #00C2D7;
+  white-space: nowrap;
+  margin: 0 auto;
+  letter-spacing: 0.1em;
+  animation: 
+    typing 3.5s steps(40, end),
+    blink-caret 0.75s step-end infinite;
+}
+
+/* Typing cursor animation */
+.typing-cursor {
+  display: inline-block;
+  width: 0.08em;
+  animation: blink 1s step-end infinite;
+  color: #00C2D7;
+  font-weight: bold;
+  margin-left: 1px;
+}
+
+@keyframes blink {
+  from, to { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
+}
+
+@keyframes blink-caret {
+  from, to { border-color: transparent }
+  50% { border-color: #00C2D7 }
+}
+
+/* Fade-in animation for section content */
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Smooth anchor scrolling */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px; /* Offset for fixed header */
 }
